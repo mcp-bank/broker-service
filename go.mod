@@ -4,7 +4,7 @@ go 1.26.1
 
 require (
 	github.com/brianvoe/gofakeit v3.18.0+incompatible
-	github.com/mcp-bank/proto v0.0.2
+	github.com/mcp-bank/proto v0.0.3
 )
 
 require (

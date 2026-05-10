@@ -46,3 +46,16 @@ func (s *Service) GetAccountBalance(ctx context.Context, request *brokerv1.GetAc
 		Currency: gofakeit.CurrencyShort(),
 	}}, nil
 }
+
+func (s *Service) GetNews(ctx context.Context, request *brokerv1.GetNewsRequest) (*brokerv1.GetNewsResponse, error) {
+	numberOfItems := gofakeit.Number(0, 20)
+	items := make([]*brokerv1.NewsItem, numberOfItems)
+	for i := range numberOfItems {
+		items[i] = &brokerv1.NewsItem{
+			Title:   gofakeit.Word(),
+			Summary: gofakeit.HipsterParagraph(gofakeit.Number(1, 5), gofakeit.Number(5, 50), gofakeit.Number(50, 500), "\n"),
+			Url:     gofakeit.URL(),
+		}
+	}
+	return &brokerv1.GetNewsResponse{Items: items}, nil
+}
