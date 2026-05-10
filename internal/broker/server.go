@@ -2,7 +2,6 @@ package broker
 
 import (
 	"context"
-	"math/rand/v2"
 
 	"github.com/brianvoe/gofakeit"
 	"github.com/mcp-bank/proto/gen/brokerv1"
@@ -18,13 +17,13 @@ func New() *Service {
 
 func (s *Service) GetPortfolio(ctx context.Context, request *brokerv1.GetPortfolioRequest) (*brokerv1.GetPortfolioResponse, error) {
 	types := []string{"stock", "bond", "futures", "cash", "option"}
-	numberOfPositions := int(rand.Float64() * 10)
+	numberOfPositions := gofakeit.Number(0, 20)
 	positions := make([]*brokerv1.PortfolioPosition, numberOfPositions)
 	for i := range numberOfPositions {
 		positions[i] = &brokerv1.PortfolioPosition{
 			Name:     gofakeit.Name(),
 			Type:     types[gofakeit.Number(0, 4)],
-			Quantity: gofakeit.Float64() * float64(gofakeit.Number(1, 10000)),
+			Quantity: gofakeit.Float64Range(1, 1000000),
 			Price: &brokerv1.Money{
 				Amount:   int64(gofakeit.Price(0.0001, 1000000)),
 				Currency: gofakeit.CurrencyShort(),
