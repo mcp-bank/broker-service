@@ -59,3 +59,16 @@ func (s *Service) GetNews(ctx context.Context, request *brokerv1.GetNewsRequest)
 	}
 	return &brokerv1.GetNewsResponse{Items: items}, nil
 }
+
+func (s *Service) GetNews2(ctx context.Context, request *brokerv1.GetNews2Request) (*brokerv1.GetNews2Response, error) {
+	numberOfItems := gofakeit.Number(0, 20)
+	items := make([]*brokerv1.News2Item, numberOfItems)
+	for i := range numberOfItems {
+		items[i] = &brokerv1.News2Item{
+			Title:   gofakeit.Word(),
+			Summary: gofakeit.HipsterParagraph(gofakeit.Number(1, 5), gofakeit.Number(5, 50), gofakeit.Number(50, 500), "\n"),
+			Url:     gofakeit.URL(),
+		}
+	}
+	return &brokerv1.GetNews2Response{Items: items}, nil
+}
